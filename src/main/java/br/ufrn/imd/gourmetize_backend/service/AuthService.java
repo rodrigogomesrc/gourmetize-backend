@@ -6,33 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class UsuarioService {
+public class AuthService {
 
     private final UsuarioRepository usuarioRepository;
 
-    private UsuarioService(@Autowired UsuarioRepository usuarioRepository) {
+    private AuthService(@Autowired UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
-    }
+    public Usuario login(String email, String password) {
 
-    public Usuario findById(Long id) {
-        return usuarioRepository.findById(id).orElse(null);
-    }
+        Usuario usuario = usuarioRepository.findByEmail(email);
 
-    public Usuario save(Usuario usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        return usuarioRepository.save(usuario);
-    }
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado");
+        }
 
-    public void deleteById(Long id) {
-        usuarioRepository.deleteById(id);
+        if (!passwordEncoder.matches(password, usuario.getPassword())) {
+            throw new IllegalArgumentException("Credenciais inválidas");
+        }
+
+        return usuario;
     }
 }
