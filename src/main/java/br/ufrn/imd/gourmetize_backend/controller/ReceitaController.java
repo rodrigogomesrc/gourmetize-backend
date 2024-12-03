@@ -62,4 +62,23 @@ public class ReceitaController {
         receitaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/favoritas/{usuarioId}")
+    public ResponseEntity<List<Receita>> findFavoritasByUsuarioId(@PathVariable Long usuarioId) {
+        try {
+            return ResponseEntity.ok(receitaService.findFavoritasByUsuarioId(usuarioId));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/favoritas/{usuarioId}/{receitaId}")
+    public ResponseEntity<Void> addFavorita(@PathVariable Long usuarioId, @PathVariable Long receitaId) {
+        try {
+            receitaService.addFavorita(usuarioId, receitaId);
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

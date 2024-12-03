@@ -1,6 +1,9 @@
 package br.ufrn.imd.gourmetize_backend.service;
 
 import br.ufrn.imd.gourmetize_backend.model.Receita;
+import br.ufrn.imd.gourmetize_backend.model.ReceitaFavorita;
+import br.ufrn.imd.gourmetize_backend.model.Usuario;
+import br.ufrn.imd.gourmetize_backend.repository.ReceitaFavoritaRepository;
 import br.ufrn.imd.gourmetize_backend.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +14,15 @@ import java.util.List;
 public class ReceitaService {
 
     private final ReceitaRepository receitaRepository;
+    private final UsuarioService usuarioService;
+    private final ReceitaFavoritaRepository receitaFavoritaRepository;
 
-    private ReceitaService(ReceitaRepository receitaRepository) {
+    private ReceitaService(@Autowired ReceitaRepository receitaRepository,
+                           @Autowired UsuarioService usuarioService,
+                           @Autowired ReceitaFavoritaRepository receitaFavoritaRepository) {
         this.receitaRepository = receitaRepository;
+        this.usuarioService = usuarioService;
+        this.receitaFavoritaRepository = receitaFavoritaRepository;
     }
 
     public List<Receita> findAll() {
@@ -30,5 +39,27 @@ public class ReceitaService {
 
     public void deleteById(Long id) {
         receitaRepository.deleteById(id);
+    }
+
+    public List<Receita> findFavoritasByUsuarioId(Long usuarioId) {
+        Usuario usuario = usuarioService.findById(usuarioId);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado");
+        }
+        return receitaRepository.findFavoritasByUsuarioId(usuarioId);
+    }
+
+    public void addFavorita(Long usuarioId, Long receitaId) {
+        Usuario usuario = usuarioService.findById(usuarioId);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado");
+        }
+        Receita receita = findById(receitaId);
+        if (receita == null) {
+            throw new IllegalArgumentException("Receita não encontrada");
+        }
+        ReceitaFavorita receitaFavorita = new ReceitaFavorita(usuario, receita);
+        receitaFavoritaRepository.save(receitaFavorita);
+
     }
 }
