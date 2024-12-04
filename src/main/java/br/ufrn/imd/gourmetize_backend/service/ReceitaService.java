@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReceitaService {
@@ -61,5 +62,22 @@ public class ReceitaService {
         ReceitaFavorita receitaFavorita = new ReceitaFavorita(usuario, receita);
         receitaFavoritaRepository.save(receitaFavorita);
 
+    }
+
+    public void removeFavorita(Long usuarioId, Long receitaId) {
+        Usuario usuario = usuarioService.findById(usuarioId);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado");
+        }
+        Receita receita = findById(receitaId);
+        if (receita == null) {
+            throw new IllegalArgumentException("Receita não encontrada");
+        }
+        Optional<ReceitaFavorita> receitaFavorita = receitaFavoritaRepository.findByUsuarioIdAndReceitaId(usuarioId, receitaId);
+        if (receitaFavorita.isPresent()) {
+            receitaFavoritaRepository.delete(receitaFavorita.get());
+        } else {
+            throw new IllegalArgumentException("Receita não é favorita do usuário");
+        }
     }
 }
