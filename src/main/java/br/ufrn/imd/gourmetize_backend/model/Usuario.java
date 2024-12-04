@@ -11,7 +11,7 @@ public class Usuario {
     private Long id;
     private String nome;
     private String email;
-    private String password;
+    private String senha;
 
     @OneToMany(mappedBy = "usuario")
     private Set<Receita> receitas;
@@ -46,12 +46,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public Set<Receita> getReceitas() {

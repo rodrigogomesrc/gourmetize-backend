@@ -25,7 +25,7 @@ public class AuthService {
             throw new IllegalArgumentException("Usuário não encontrado");
         }
 
-        if (!passwordEncoder.matches(password, usuario.getPassword())) {
+        if (!passwordEncoder.matches(password, usuario.getSenha())) {
             throw new IllegalArgumentException("Credenciais inválidas");
         }
 
