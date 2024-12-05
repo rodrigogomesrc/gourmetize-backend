@@ -25,14 +25,14 @@ public class EtiquetaController {
         }
     }
 
-    @PostMapping("/{nome}")
+    /*@PostMapping("/{nome}")
     public ResponseEntity<?> save(@PathVariable String nome) {
         try {
             return ResponseEntity.ok(etiquetaService.save(nome));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao salvar etiqueta: " + e.getMessage());
         }
-    }
+    }*/
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {

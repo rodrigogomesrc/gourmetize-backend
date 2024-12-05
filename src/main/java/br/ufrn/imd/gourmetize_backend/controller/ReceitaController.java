@@ -42,7 +42,7 @@ public class ReceitaController {
             return ResponseEntity.notFound().build();
         }
 
-        existingReceita.setNome(receitaDetails.getNome());
+        existingReceita.setTitulo(receitaDetails.getTitulo());
         existingReceita.setDescricao(receitaDetails.getDescricao());
         existingReceita.setIngredientes(receitaDetails.getIngredientes());
         existingReceita.setPreparo(receitaDetails.getPreparo());
