@@ -1,4 +1,5 @@
 package br.ufrn.imd.gourmetize_backend.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -14,12 +15,15 @@ public class Usuario {
     private String senha;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private Set<Receita> receitas;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private Set<Etiqueta> etiquetas;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     private Set<Avaliacao> avaliacoes;
 
     public void setId(Long id) {

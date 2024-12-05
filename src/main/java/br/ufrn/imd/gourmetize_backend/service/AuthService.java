@@ -18,7 +18,6 @@ public class AuthService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Usuario login(String email, String password) {
-
         Usuario usuario = usuarioRepository.findByEmail(email);
 
         if (usuario == null) {
