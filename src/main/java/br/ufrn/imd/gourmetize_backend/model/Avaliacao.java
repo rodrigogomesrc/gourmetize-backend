@@ -15,6 +15,20 @@ public class Avaliacao {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    public Avaliacao(String comentario, int nota, Usuario user) {
+        this.comentario = comentario;
+        this.nota = nota;
+        this.usuario = user;
+    }
+
+    public Avaliacao(Long id, String comentario, int nota, Usuario user) {
+        this.id = id;
+        this.comentario = comentario;
+        this.nota = nota;
+        this.usuario = user;
+
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
