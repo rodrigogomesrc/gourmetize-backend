@@ -59,6 +59,12 @@ public class ReceitaService {
         if (receita == null) {
             throw new IllegalArgumentException("Receita não encontrada");
         }
+
+        ReceitaFavorita favorita = receitaFavoritaRepository.findByUsuarioIdAndReceitaId(usuarioId, receitaId).orElse(null);
+        if(favorita != null) {
+            throw new IllegalArgumentException("Receita já favoritada");
+        }
+
         ReceitaFavorita receitaFavorita = new ReceitaFavorita(usuario, receita);
         receitaFavoritaRepository.save(receitaFavorita);
 
