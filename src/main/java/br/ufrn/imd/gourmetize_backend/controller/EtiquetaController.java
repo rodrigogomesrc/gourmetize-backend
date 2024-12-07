@@ -16,7 +16,7 @@ public class EtiquetaController {
     @Autowired
     private EtiquetaService etiquetaService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> findAll() {
         try {
             return ResponseEntity.ok(etiquetaService.findAll());
@@ -25,14 +25,14 @@ public class EtiquetaController {
         }
     }
 
-    /*@PostMapping("/{nome}")
-    public ResponseEntity<?> save(@PathVariable String nome) {
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Etiqueta etiqueta) {
         try {
-            return ResponseEntity.ok(etiquetaService.save(nome));
+            return ResponseEntity.ok(etiquetaService.save(etiqueta));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao salvar etiqueta: " + e.getMessage());
         }
-    }*/
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
