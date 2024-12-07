@@ -18,9 +18,9 @@ public class EtiquetaService {
         return etiquetaRepository.findAll();
     }
 
-    /*public Etiqueta save(String nome) {
-        return etiquetaRepository.save(new Etiqueta(nome));
-    }*/
+    public Etiqueta save(Etiqueta etiqueta) {
+        return etiquetaRepository.save(etiqueta);
+    }
 
     public Optional<Etiqueta> findById(Long id) {
         return etiquetaRepository.findById(id);
@@ -28,5 +28,9 @@ public class EtiquetaService {
 
     public Optional<Etiqueta> findByName(String name) {
         return etiquetaRepository.findByNome(name);
+    }
+
+    public List<Etiqueta> findByUsuarioId(Long usuarioId) {
+        return etiquetaRepository.findByUsuarioId(usuarioId);
     }
 }

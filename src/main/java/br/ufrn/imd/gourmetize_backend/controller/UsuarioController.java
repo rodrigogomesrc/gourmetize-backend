@@ -1,5 +1,6 @@
 package br.ufrn.imd.gourmetize_backend.controller;
 
+import br.ufrn.imd.gourmetize_backend.model.Etiqueta;
 import br.ufrn.imd.gourmetize_backend.model.Usuario;
 import br.ufrn.imd.gourmetize_backend.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class UsuarioController {
     public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
         usuarioService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/etiquetas")
+    public List<Etiqueta> findEtiquetas(@PathVariable Long id) {
+        return usuarioService.findEtiquetas(id);
     }
 }

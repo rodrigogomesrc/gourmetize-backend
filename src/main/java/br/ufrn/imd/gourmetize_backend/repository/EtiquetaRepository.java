@@ -1,5 +1,6 @@
 package br.ufrn.imd.gourmetize_backend.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ import br.ufrn.imd.gourmetize_backend.model.Etiqueta;
 public interface EtiquetaRepository extends JpaRepository<Etiqueta, Long> {
     Optional<Etiqueta> findByNome(String name);
 
+    List<Etiqueta> findByUsuarioId(Long usuarioId);
 }
