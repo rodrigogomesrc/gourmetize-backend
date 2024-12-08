@@ -11,4 +11,7 @@ public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 
     @Query("SELECT r FROM Receita r JOIN ReceitaFavorita rf ON rf.receita = r WHERE rf.usuario.id = :usuarioId")
     List<Receita> findFavoritasByUsuarioId(@Param("usuarioId") Long usuarioId);
+
+    @Query("SELECT r FROM Receita r WHERE r.usuario.id = :usuarioId")
+    List<Receita> findByUsuarioId(@Param("usuarioId") Long usuarioId);
 }

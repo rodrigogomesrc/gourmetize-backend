@@ -28,6 +28,14 @@ public class ReceitaController {
         Receita receita = receitaService.findById(id);
         return receita != null ? ResponseEntity.ok(receita) : ResponseEntity.notFound().build();
     }
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Receita>> getReceitaByUser(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(receitaService.findByUsuarioId(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PostMapping
     public Receita createReceita(@RequestBody Receita receita) {

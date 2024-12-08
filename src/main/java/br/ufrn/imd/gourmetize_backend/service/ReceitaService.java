@@ -33,6 +33,14 @@ public class ReceitaService {
     public Receita findById(Long id) {
         return receitaRepository.findById(id).orElse(null);
     }
+    public List<Receita> findByUsuarioId(Long id) {
+        Usuario usuario = usuarioService.findById(id);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não encontrado");
+        }
+        return receitaRepository.findByUsuarioId(id);
+
+    }
 
     public Receita save(Receita receita) {
         return receitaRepository.save(receita);
