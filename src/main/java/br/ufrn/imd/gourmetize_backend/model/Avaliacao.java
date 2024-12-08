@@ -1,6 +1,11 @@
 package br.ufrn.imd.gourmetize_backend.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Avaliacao {
@@ -27,6 +32,9 @@ public class Avaliacao {
         this.nota = nota;
         this.usuario = user;
 
+    }
+
+    public Avaliacao() {
     }
 
     public Usuario getUsuario() {

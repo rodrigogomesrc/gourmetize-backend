@@ -1,8 +1,14 @@
 package br.ufrn.imd.gourmetize_backend.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -12,8 +18,6 @@ public class Usuario {
     private Long id;
     private String nome;
     private String email;
-
-    @JsonIgnore
     private String senha;
 
     @OneToMany(mappedBy = "usuario")
