@@ -1,6 +1,10 @@
 package br.ufrn.imd.gourmetize_backend.model;
 
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +21,10 @@ public class Receita {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "receita", cascade = CascadeType.REMOVE)
+    private Set<Avaliacao> avaliacoes;
 
     public Usuario getUsuario() {
         return usuario;

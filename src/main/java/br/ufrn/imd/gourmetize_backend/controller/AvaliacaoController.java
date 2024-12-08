@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufrn.imd.gourmetize_backend.model.Avaliacao;
-import br.ufrn.imd.gourmetize_backend.model.dto.AvaliacaoDTO;
 import br.ufrn.imd.gourmetize_backend.service.AvaliacaoService;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/avaliacoes")
@@ -59,19 +62,10 @@ public class AvaliacaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateAvaliacao(@PathVariable Long id, @RequestBody AvaliacaoDTO avaliacaoDTO) {
+    public ResponseEntity<?> updateAvaliacao(@PathVariable Long id, @RequestBody Avaliacao avaliacao) {
         try {
-            Avaliacao avaliacaoExistente = avaliacaoService.findById(id);
 
-            if (avaliacaoExistente != null) {
-                return ResponseEntity.status(404).body("Avaliação não encontrada"); // Retorna erro caso a avaliação não
-                                                                                    // exista
-            }
-
-            return ResponseEntity.ok(avaliacaoService.update(id,
-                    avaliacaoDTO.comentario(),
-                    avaliacaoDTO.nota(),
-                    avaliacaoDTO.usuarioId()));
+            return ResponseEntity.ok(avaliacaoService.update(avaliacao));
 
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -92,3 +86,4 @@ public class AvaliacaoController {
         }
     }
 }
+
