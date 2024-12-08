@@ -30,7 +30,7 @@ public class ReceitaController {
         return receita != null ? ResponseEntity.ok(receita) : ResponseEntity.notFound().build();
     }
     @GetMapping("/usuario/{id}")
-    public ResponseEntity<List<Receita>> getReceitaByUser(@PathVariable Long id) {
+    public ResponseEntity<List<ReceitaDTO>> getReceitaByUser(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(receitaService.findByUsuarioId(id));
         } catch (IllegalArgumentException e) {
@@ -39,12 +39,12 @@ public class ReceitaController {
     }
 
     @PostMapping
-    public Receita createReceita(@RequestBody Receita receita) {
+    public ReceitaDTO createReceita(@RequestBody Receita receita) {
         return receitaService.save(receita);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Receita> updateReceita(@PathVariable Long id, @RequestBody Receita receitaDetails) {
+    public ResponseEntity<ReceitaDTO> updateReceita(@PathVariable Long id, @RequestBody Receita receitaDetails) {
         Receita existingReceita = receitaService.findById(id);
 
         if (existingReceita == null) {
@@ -56,7 +56,7 @@ public class ReceitaController {
         existingReceita.setIngredientes(receitaDetails.getIngredientes());
         existingReceita.setPreparo(receitaDetails.getPreparo());
 
-        Receita updatedReceita = receitaService.save(existingReceita);
+        ReceitaDTO updatedReceita = receitaService.save(existingReceita);
         return ResponseEntity.ok(updatedReceita);
     }
 
@@ -73,7 +73,7 @@ public class ReceitaController {
     }
 
     @GetMapping("/favoritas/{usuarioId}")
-    public ResponseEntity<List<Receita>> findFavoritasByUsuarioId(@PathVariable Long usuarioId) {
+    public ResponseEntity<List<ReceitaDTO>> findFavoritasByUsuarioId(@PathVariable Long usuarioId) {
         try {
             return ResponseEntity.ok(receitaService.findFavoritasByUsuarioId(usuarioId));
         } catch (IllegalArgumentException e) {

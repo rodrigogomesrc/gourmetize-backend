@@ -29,28 +29,29 @@ public class ReceitaService {
         this.receitaFavoritaRepository = receitaFavoritaRepository;
     }
 
+    private ReceitaDTO entityToDtO(Receita receita) {
+        Double mediaAvaliacao = receita.getAvaliacoes().size() > 0 ? receita.getAvaliacoes().stream()
+            .mapToDouble(Avaliacao::getNota)
+            .average()
+            .orElse(0) : null;
+
+        return new ReceitaDTO(
+            receita.getId(),
+            receita.getTitulo(),
+            receita.getDescricao(),
+            receita.getIngredientes(),
+            receita.getPreparo(),
+            receita.getUsuario(),
+            receita.getEtiquetas(),
+            mediaAvaliacao
+        );
+    }
+
     public List<ReceitaDTO> findAll() {
         List<Receita> receitas = receitaRepository.findAll();
 
         return receitas.stream()
-            .map(receita -> {
-                // Calcular a média das avaliações
-                Double mediaAvaliacao = receita.getAvaliacoes().size() > 0 ? receita.getAvaliacoes().stream()
-                    .mapToDouble(Avaliacao::getNota)
-                    .average()
-                    .orElse(0) : null;
-
-                return new ReceitaDTO(
-                    receita.getId(),
-                    receita.getTitulo(),
-                    receita.getDescricao(),
-                    receita.getIngredientes(),
-                    receita.getPreparo(),
-                    receita.getUsuario(),
-                    receita.getEtiquetas(),
-                    mediaAvaliacao
-                );
-            })
+            .map(this::entityToDtO)
             .collect(Collectors.toList());
     }
 
@@ -58,29 +59,37 @@ public class ReceitaService {
         return receitaRepository.findById(id).orElse(null);
     }
 
-    public List<Receita> findByUsuarioId(Long id) {
+    public List<ReceitaDTO> findByUsuarioId(Long id) {
         Usuario usuario = usuarioService.findById(id);
         if (usuario == null) {
             throw new IllegalArgumentException("Usuário não encontrado");
         }
-        return receitaRepository.findByUsuarioId(id);
+        return receitaRepository
+            .findByUsuarioId(id)
+            .stream()
+            .map(this::entityToDtO)
+            .collect(Collectors.toList());
 
     }
 
-    public Receita save(Receita receita) {
-        return receitaRepository.save(receita);
+    public ReceitaDTO save(Receita receita) {
+        return entityToDtO(receitaRepository.save(receita));
     }
 
     public void deleteById(Long id) {
         receitaRepository.deleteById(id);
     }
 
-    public List<Receita> findFavoritasByUsuarioId(Long usuarioId) {
+    public List<ReceitaDTO> findFavoritasByUsuarioId(Long usuarioId) {
         Usuario usuario = usuarioService.findById(usuarioId);
         if (usuario == null) {
             throw new IllegalArgumentException("Usuário não encontrado");
         }
-        return receitaRepository.findFavoritasByUsuarioId(usuarioId);
+        return receitaRepository
+            .findFavoritasByUsuarioId(usuarioId)
+            .stream()
+            .map(this::entityToDtO)
+            .collect(Collectors.toList());
     }
 
     public void addFavorita(Long usuarioId, Long receitaId) {
