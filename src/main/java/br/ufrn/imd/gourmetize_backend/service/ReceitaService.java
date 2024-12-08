@@ -20,8 +20,8 @@ public class ReceitaService {
     private final ReceitaFavoritaRepository receitaFavoritaRepository;
 
     private ReceitaService(@Autowired ReceitaRepository receitaRepository,
-                           @Autowired UsuarioService usuarioService,
-                           @Autowired ReceitaFavoritaRepository receitaFavoritaRepository) {
+            @Autowired UsuarioService usuarioService,
+            @Autowired ReceitaFavoritaRepository receitaFavoritaRepository) {
         this.receitaRepository = receitaRepository;
         this.usuarioService = usuarioService;
         this.receitaFavoritaRepository = receitaFavoritaRepository;
@@ -34,6 +34,7 @@ public class ReceitaService {
     public Receita findById(Long id) {
         return receitaRepository.findById(id).orElse(null);
     }
+
     public List<Receita> findByUsuarioId(Long id) {
         Usuario usuario = usuarioService.findById(id);
         if (usuario == null) {
@@ -69,8 +70,9 @@ public class ReceitaService {
             throw new IllegalArgumentException("Receita não encontrada");
         }
 
-        ReceitaFavorita favorita = receitaFavoritaRepository.findByUsuarioIdAndReceitaId(usuarioId, receitaId).orElse(null);
-        if(favorita != null) {
+        ReceitaFavorita favorita = receitaFavoritaRepository.findByUsuarioIdAndReceitaId(usuarioId, receitaId)
+                .orElse(null);
+        if (favorita != null) {
             throw new IllegalArgumentException("Receita já favoritada");
         }
 
@@ -88,7 +90,8 @@ public class ReceitaService {
         if (receita == null) {
             throw new IllegalArgumentException("Receita não encontrada");
         }
-        Optional<ReceitaFavorita> receitaFavorita = receitaFavoritaRepository.findByUsuarioIdAndReceitaId(usuarioId, receitaId);
+        Optional<ReceitaFavorita> receitaFavorita = receitaFavoritaRepository.findByUsuarioIdAndReceitaId(usuarioId,
+                receitaId);
         if (receitaFavorita.isPresent()) {
             receitaFavoritaRepository.delete(receitaFavorita.get());
         } else {

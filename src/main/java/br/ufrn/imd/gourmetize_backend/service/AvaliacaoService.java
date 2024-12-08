@@ -51,4 +51,8 @@ public class AvaliacaoService {
 
     }
 
+    public List<Avaliacao> findByReceitaId(Long receitaId) {
+        return avaliacaoRepository.findByReceitaId(receitaId);
+    }
+
 }

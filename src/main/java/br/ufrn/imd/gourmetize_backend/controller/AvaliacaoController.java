@@ -50,14 +50,13 @@ public class AvaliacaoController {
         }
     }
 
-    // Buscar uma avaliação por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
-        Avaliacao avaliacao = avaliacaoService.findById(id);
-        if (avaliacao != null) {
-            return ResponseEntity.ok(avaliacao); // Retorna a avaliação se encontrada
+    @GetMapping("/{receitaId}")
+    public ResponseEntity<?> findByReceitaId(@PathVariable Long receitaId) {
+        List<Avaliacao> avaliacoes = avaliacaoService.findByReceitaId(receitaId);
+        if (!avaliacoes.isEmpty()) {
+            return ResponseEntity.ok(avaliacoes); // Retorna as avaliações encontradas
         } else {
-            return ResponseEntity.status(404).body("Avaliação não encontrada"); // Retorna erro se não encontrada
+            return ResponseEntity.status(404).body("Nenhuma avaliação encontrada para essa receita");
         }
     }
 
@@ -86,4 +85,3 @@ public class AvaliacaoController {
         }
     }
 }
-
