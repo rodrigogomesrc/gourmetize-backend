@@ -26,6 +26,15 @@ public class Receita {
     @OneToMany(mappedBy = "receita", cascade = CascadeType.REMOVE)
     private Set<Avaliacao> avaliacoes;
 
+    @ManyToMany
+    @JoinTable(
+        name = "receita_etiqueta",
+        joinColumns = @JoinColumn(name = "receita_id"),
+        inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
+    )
+    private Set<Etiqueta> etiquetas;
+
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -73,5 +82,21 @@ public class Receita {
 
     public void setPreparo(String preparo) {
         this.preparo = preparo;
+    }
+
+    public Set<Etiqueta> getEtiquetas() {
+      return etiquetas;
+    }
+
+    public void setEtiquetas(Set<Etiqueta> etiquetas) {
+      this.etiquetas = etiquetas;
+    }
+
+    public Set<Avaliacao> getAvaliacoes() {
+      return avaliacoes;
+    }
+
+    public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
+      this.avaliacoes = avaliacoes;
     }
 }

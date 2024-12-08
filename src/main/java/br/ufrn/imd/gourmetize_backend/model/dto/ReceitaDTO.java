@@ -1,5 +1,8 @@
 package br.ufrn.imd.gourmetize_backend.model.dto;
 
+import java.util.Set;
+
+import br.ufrn.imd.gourmetize_backend.model.Etiqueta;
 import br.ufrn.imd.gourmetize_backend.model.Usuario;
 
 public class ReceitaDTO {
@@ -9,15 +12,17 @@ public class ReceitaDTO {
     private String ingredientes;
     private String preparo;
     private Usuario usuario;
+    private Set<Etiqueta> etiquetas;
     private Double mediaAvaliacao;
 
-    public ReceitaDTO(Long id, String titulo, String descricao, String ingredientes, String preparo, Usuario usuario, Double mediaAvaliacao) {
+    public ReceitaDTO(Long id, String titulo, String descricao, String ingredientes, String preparo, Usuario usuario, Set<Etiqueta> etiquetas, Double mediaAvaliacao) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.ingredientes = ingredientes;
         this.preparo = preparo;
         this.usuario = usuario;
+        this.etiquetas = etiquetas;
         this.mediaAvaliacao = mediaAvaliacao;
     }
 
@@ -67,6 +72,14 @@ public class ReceitaDTO {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Set<Etiqueta> getEtiquetas() {
+      return etiquetas;
+    }
+
+    public void setEtiquetas(Set<Etiqueta> etiquetas) {
+      this.etiquetas = etiquetas;
     }
 
     public Double getMediaAvaliacao() {

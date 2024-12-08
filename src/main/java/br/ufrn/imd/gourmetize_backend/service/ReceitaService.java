@@ -1,5 +1,6 @@
 package br.ufrn.imd.gourmetize_backend.service;
 
+import br.ufrn.imd.gourmetize_backend.model.Avaliacao;
 import br.ufrn.imd.gourmetize_backend.model.Receita;
 import br.ufrn.imd.gourmetize_backend.model.ReceitaFavorita;
 import br.ufrn.imd.gourmetize_backend.model.Usuario;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReceitaService {
@@ -28,7 +30,28 @@ public class ReceitaService {
     }
 
     public List<ReceitaDTO> findAll() {
-        return receitaRepository.findAllReceitasWithAverageRating();
+        List<Receita> receitas = receitaRepository.findAll();
+
+        return receitas.stream()
+            .map(receita -> {
+                // Calcular a média das avaliações
+                Double mediaAvaliacao = receita.getAvaliacoes().size() > 0 ? receita.getAvaliacoes().stream()
+                    .mapToDouble(Avaliacao::getNota)
+                    .average()
+                    .orElse(0) : null;
+
+                return new ReceitaDTO(
+                    receita.getId(),
+                    receita.getTitulo(),
+                    receita.getDescricao(),
+                    receita.getIngredientes(),
+                    receita.getPreparo(),
+                    receita.getUsuario(),
+                    receita.getEtiquetas(),
+                    mediaAvaliacao
+                );
+            })
+            .collect(Collectors.toList());
     }
 
     public Receita findById(Long id) {
