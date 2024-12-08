@@ -1,6 +1,7 @@
 package br.ufrn.imd.gourmetize_backend.controller;
 
 import br.ufrn.imd.gourmetize_backend.model.Receita;
+import br.ufrn.imd.gourmetize_backend.model.dto.ReceitaDTO;
 import br.ufrn.imd.gourmetize_backend.service.ReceitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class ReceitaController {
     }
 
     @GetMapping
-    public List<Receita> getAllReceitas() {
+    public List<ReceitaDTO> getAllReceitas() {
         return receitaService.findAll();
     }
 

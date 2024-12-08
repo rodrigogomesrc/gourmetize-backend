@@ -3,6 +3,7 @@ package br.ufrn.imd.gourmetize_backend.service;
 import br.ufrn.imd.gourmetize_backend.model.Receita;
 import br.ufrn.imd.gourmetize_backend.model.ReceitaFavorita;
 import br.ufrn.imd.gourmetize_backend.model.Usuario;
+import br.ufrn.imd.gourmetize_backend.model.dto.ReceitaDTO;
 import br.ufrn.imd.gourmetize_backend.repository.ReceitaFavoritaRepository;
 import br.ufrn.imd.gourmetize_backend.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class ReceitaService {
         this.receitaFavoritaRepository = receitaFavoritaRepository;
     }
 
-    public List<Receita> findAll() {
-        return receitaRepository.findAll();
+    public List<ReceitaDTO> findAll() {
+        return receitaRepository.findAllReceitasWithAverageRating();
     }
 
     public Receita findById(Long id) {

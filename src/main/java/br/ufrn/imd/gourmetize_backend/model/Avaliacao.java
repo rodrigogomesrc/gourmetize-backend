@@ -8,6 +8,7 @@ public class Avaliacao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private int nota;
     private String comentario;
 
@@ -15,19 +16,9 @@ public class Avaliacao {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    public Avaliacao(String comentario, int nota, Usuario user) {
-        this.comentario = comentario;
-        this.nota = nota;
-        this.usuario = user;
-    }
-
-    public Avaliacao(Long id, String comentario, int nota, Usuario user) {
-        this.id = id;
-        this.comentario = comentario;
-        this.nota = nota;
-        this.usuario = user;
-
-    }
+    @ManyToOne
+    @JoinColumn(name = "receita_id")
+    private Receita receita;
 
     public Usuario getUsuario() {
         return usuario;
@@ -59,5 +50,13 @@ public class Avaliacao {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public Receita getReceita() {
+      return receita;
+    }
+
+    public void setReceita(Receita receita) {
+      this.receita = receita;
     }
 }
