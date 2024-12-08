@@ -17,6 +17,7 @@ public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 
     @Query("SELECT r FROM Receita r WHERE r.usuario.id = :usuarioId")
     List<Receita> findByUsuarioId(@Param("usuarioId") Long usuarioId);
+
     @Query("SELECT new br.ufrn.imd.gourmetize_backend.model.dto.ReceitaDTO(" +
        "r.id, r.titulo, r.descricao, r.ingredientes, r.preparo, r.usuario, AVG(a.nota)) " +
        "FROM Receita r " +
