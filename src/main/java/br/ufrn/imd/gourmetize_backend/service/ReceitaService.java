@@ -30,7 +30,9 @@ public class ReceitaService {
     }
 
     private ReceitaDTO entityToDtO(Receita receita) {
-        Double mediaAvaliacao = receita.getAvaliacoes().size() > 0 ? receita.getAvaliacoes().stream()
+        var avaliacoes = receita.getAvaliacoes();
+
+        Double mediaAvaliacao = avaliacoes != null && avaliacoes.size() > 0 ? avaliacoes.stream()
             .mapToDouble(Avaliacao::getNota)
             .average()
             .orElse(0) : null;
