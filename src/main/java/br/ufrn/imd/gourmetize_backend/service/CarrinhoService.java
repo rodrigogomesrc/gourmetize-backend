@@ -1,6 +1,7 @@
 package br.ufrn.imd.gourmetize_backend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,19 +28,18 @@ public class CarrinhoService {
     }
 
     public Carrinho atualizarCarrinho(Carrinho carrinho) {
-        return carrinhoRepository.save(carrinho);
-    }
-
-    // Adicionar um ingrediente ao carrinho
-    public Carrinho adicionarIngrediente(Usuario usuario, String ingrediente) {
-        Carrinho carrinho = carrinhoRepository.findByUsuario(usuario);
-        if (carrinho == null) {
-            carrinho = new Carrinho();
-            carrinho.setUsuario(usuario);
+        Carrinho carrinhoExistente = carrinhoRepository.findByUsuario(carrinho.getUsuario());
+        
+        if (carrinhoExistente!= null) {
+            carrinhoExistente.setIngredientes(carrinho.getIngredientes());
+            return carrinhoRepository.save(carrinhoExistente);
+        } else {
+            // Caso não exista, cria um novo carrinho
+            return carrinhoRepository.save(carrinho);
         }
-        carrinho.getIngredientes().add(ingrediente);
-        return carrinhoRepository.save(carrinho);
     }
+    
+ 
 
     // Limpar o carrinho (remover todos os ingredientes)
     public Carrinho limparCarrinho(Usuario usuario) {
