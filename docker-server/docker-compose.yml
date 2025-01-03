@@ -77,3 +77,6 @@ services:
       options:
         max-size: "1g"
         max-file: "3"
+
+volumes:
+  minio_data:
