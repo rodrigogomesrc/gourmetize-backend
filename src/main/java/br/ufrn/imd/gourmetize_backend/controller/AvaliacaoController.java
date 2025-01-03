@@ -53,11 +53,8 @@ public class AvaliacaoController {
     @GetMapping("/{receitaId}")
     public ResponseEntity<?> findByReceitaId(@PathVariable Long receitaId) {
         List<Avaliacao> avaliacoes = avaliacaoService.findByReceitaId(receitaId);
-        if (!avaliacoes.isEmpty()) {
-            return ResponseEntity.ok(avaliacoes); // Retorna as avaliações encontradas
-        } else {
-            return ResponseEntity.status(404).body("Nenhuma avaliação encontrada para essa receita");
-        }
+
+        return ResponseEntity.ok(avaliacoes); // Retorna as avaliações encontradas
     }
 
     @PutMapping("/{id}")
