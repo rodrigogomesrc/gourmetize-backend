@@ -14,8 +14,18 @@ public class ReceitaDTO {
     private Usuario usuario;
     private Set<Etiqueta> etiquetas;
     private Double mediaAvaliacao;
+    private String imageUrl;
 
-    public ReceitaDTO(Long id, String titulo, String descricao, String ingredientes, String preparo, Usuario usuario, Set<Etiqueta> etiquetas, Double mediaAvaliacao) {
+    public ReceitaDTO(Long id,
+                      String titulo,
+                      String descricao,
+                      String ingredientes,
+                      String preparo,
+                      Usuario usuario,
+                      Set<Etiqueta> etiquetas,
+                      Double mediaAvaliacao,
+                      String imageUrl
+    ) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -24,6 +34,7 @@ public class ReceitaDTO {
         this.usuario = usuario;
         this.etiquetas = etiquetas;
         this.mediaAvaliacao = mediaAvaliacao;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -88,5 +99,13 @@ public class ReceitaDTO {
 
     public void setMediaAvaliacao(Double mediaAvaliacao) {
         this.mediaAvaliacao = mediaAvaliacao;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

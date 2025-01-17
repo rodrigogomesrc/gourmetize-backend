@@ -32,7 +32,7 @@ public class ReceitaService {
     private ReceitaDTO entityToDtO(Receita receita) {
         var avaliacoes = receita.getAvaliacoes();
 
-        Double mediaAvaliacao = avaliacoes != null && avaliacoes.size() > 0 ? avaliacoes.stream()
+        Double mediaAvaliacao = avaliacoes != null && !avaliacoes.isEmpty() ? avaliacoes.stream()
             .mapToDouble(Avaliacao::getNota)
             .average()
             .orElse(0) : null;
@@ -45,7 +45,8 @@ public class ReceitaService {
             receita.getPreparo(),
             receita.getUsuario(),
             receita.getEtiquetas(),
-            mediaAvaliacao
+            mediaAvaliacao,
+            receita.getImageUrl()
         );
     }
 

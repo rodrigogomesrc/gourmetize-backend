@@ -17,6 +17,7 @@ public class Receita {
     private String descricao;
     private String ingredientes;
     private String preparo;
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -98,5 +99,13 @@ public class Receita {
 
     public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
       this.avaliacoes = avaliacoes;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
