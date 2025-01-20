@@ -16,6 +16,7 @@ public class Avaliacao {
 
     private int nota;
     private String comentario;
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -66,5 +67,12 @@ public class Avaliacao {
 
     public void setReceita(Receita receita) {
       this.receita = receita;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
