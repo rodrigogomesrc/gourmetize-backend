@@ -50,8 +50,8 @@ public class ReceitaController {
         if (existingReceita == null) {
             return ResponseEntity.notFound().build();
         }
-
         existingReceita.setTitulo(receitaDetails.getTitulo());
+        existingReceita.setImageUrl(receitaDetails.getImageUrl());
         existingReceita.setDescricao(receitaDetails.getDescricao());
         existingReceita.setIngredientes(receitaDetails.getIngredientes());
         existingReceita.setPreparo(receitaDetails.getPreparo());
